@@ -31,6 +31,7 @@ module UnobtrusiveFlash
 
     class << self
       def sanitize_flash(flash)
+        flash = flash.key?(:timedout) ? flash.delete(:timedout) : flash
         flash.to_a.map do |key, value|
           html_safe_value = value.html_safe? ? value : ERB::Util.html_escape(value)
           [key, html_safe_value]
